@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://World.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="World" type="Spatial" parent="."]
+script = ExtResource( 1 )
+
+[node name="Rotate" type="Spatial" parent="World"]
+
+[node name="Camera" type="Camera" parent="World/Rotate"]
+transform = Transform( 1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, -0.00675058, 9.96524, 50.0138 )
+fov = 60.0
+near = 0.01
+far = 8192.0
+
+[node name="DirectionalLight" type="DirectionalLight" parent="World"]
+transform = Transform( 1, 0, 0, 0, 0.916781, 0.399389, 0, -0.399389, 0.916781, 0, 0, 0 )
+
+[node name="Spatial" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.94187, 45.4544 )
+
+[node name="Sprite3D" type="Sprite3D" parent="Spatial"]
+billboard = 1
+texture = ExtResource( 2 )
