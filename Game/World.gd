@@ -40,6 +40,7 @@ func _ready():
 	mesh_instance.create_trimesh_collision()
 
 	add_child(mesh_instance)
+	
 
 
 func _process(delta):
