@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Game"
-run/main_scene="res://Spatial.tscn"
+run/main_scene="res://Scenes/Spatial.tscn"
 config/icon="res://icon.png"
 
 [autoload]
