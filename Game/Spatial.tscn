@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://RigidBody.gd" type="Script" id=3]
+
+[sub_resource type="BoxShape" id=1]
 
 [node name="Spatial" type="Spatial"]
 
@@ -11,17 +14,25 @@ script = ExtResource( 1 )
 [node name="Rotate" type="Spatial" parent="World"]
 
 [node name="Camera" type="Camera" parent="World/Rotate"]
-transform = Transform( 1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, -0.00675058, 9.96524, 50.0138 )
+transform = Transform( 1, 0, 0, 0, 0.97178, 0.235888, 0, -0.235888, 0.97178, -0.00675058, 19.8365, 72.2112 )
+projection = 1
 fov = 60.0
+size = 23.4742
 near = 0.01
 far = 8192.0
 
 [node name="DirectionalLight" type="DirectionalLight" parent="World"]
 transform = Transform( 1, 0, 0, 0, 0.916781, 0.399389, 0, -0.399389, 0.916781, 0, 0, 0 )
 
-[node name="Spatial" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.94187, 45.4544 )
+[node name="RigidBody" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25.6113, 10.4306 )
+script = ExtResource( 3 )
 
-[node name="Sprite3D" type="Sprite3D" parent="Spatial"]
+[node name="Sprite3D" type="Sprite3D" parent="RigidBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.266777, -0.0709686 )
 billboard = 1
 texture = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.122108, 0 )
+shape = SubResource( 1 )
