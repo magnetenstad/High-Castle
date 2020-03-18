@@ -6,7 +6,7 @@ func _ready():
 	noise.octaves = 6
 
 	var plane_mesh = PlaneMesh.new()
-	plane_mesh.size = Vector2(128, 128)
+	plane_mesh.size = Vector2(32, 32)
 	plane_mesh.subdivide_depth = plane_mesh.size.x
 	plane_mesh.subdivide_width = plane_mesh.size.x
 

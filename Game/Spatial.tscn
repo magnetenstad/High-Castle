@@ -1,10 +1,11 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://sprites/hatman.png" type="Texture" id=2]
 [ext_resource path="res://RigidBody.gd" type="Script" id=3]
 
 [sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 1, 0.29753 )
 
 [node name="Spatial" type="Spatial"]
 
@@ -14,10 +15,9 @@ script = ExtResource( 1 )
 [node name="Rotate" type="Spatial" parent="World"]
 
 [node name="Camera" type="Camera" parent="World/Rotate"]
-transform = Transform( 1, 0, 0, 0, 0.97178, 0.235888, 0, -0.235888, 0.97178, -0.00675058, 19.8365, 72.2112 )
-projection = 1
+transform = Transform( 1, 0, 0, 0, 0.899825, 0.436252, 0, -0.436252, 0.899825, -0.00675058, 7.21332, 12.0038 )
 fov = 60.0
-size = 23.4742
+size = 17.4974
 near = 0.01
 far = 8192.0
 
@@ -25,14 +25,17 @@ far = 8192.0
 transform = Transform( 1, 0, 0, 0, 0.916781, 0.399389, 0, -0.399389, 0.916781, 0, 0, 0 )
 
 [node name="RigidBody" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25.6113, 10.4306 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0 )
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
 script = ExtResource( 3 )
 
 [node name="Sprite3D" type="Sprite3D" parent="RigidBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.266777, -0.0709686 )
-billboard = 1
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.450689, 2.26244, -0.367474 )
+pixel_size = 0.1
 texture = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.122108, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.122108, -0.419441 )
 shape = SubResource( 1 )
