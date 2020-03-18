@@ -42,5 +42,5 @@ func _ready():
 	add_child(mesh_instance)
 
 
-#func _process(delta):
-	#$Rotate.rotate_y(delta * 0.5)
+func _process(delta):
+	$Rotate.rotate_y(delta * 0.5)

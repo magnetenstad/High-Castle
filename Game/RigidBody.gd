@@ -15,15 +15,14 @@ func _process(delta):
 	var spd_z = 0
 	
 	if Input.is_key_pressed(KEY_D):
-		spd_x = 1
+		spd_x = delta*60
 	if Input.is_key_pressed(KEY_A):
-		spd_x = -1
+		spd_x = -delta*60
 	if Input.is_key_pressed(KEY_S):
-		spd_z = 1
+		spd_z = delta*60
 	if Input.is_key_pressed(KEY_W):
-		spd_z = -1
+		spd_z = -delta*60
 	if Input.is_key_pressed(KEY_SPACE):
-		spd_y = 2
+		spd_y = 2*delta*60
 	
 	add_central_force(Vector3(spd_x, spd_y, spd_z) * 30)
-	
