@@ -14,7 +14,7 @@ func _input(event):
 		var result = space_state.intersect_ray(from, to)
 		result.position.y += 1
 		result.position.x = round(result.position.x)
-		result.position.y = round(result.position.y)
+		result.position.y = round(result.position.y) - .42
 		result.position.z = round(result.position.z)
 		Spawn(result.position)
 
