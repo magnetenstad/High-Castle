@@ -1,28 +1,35 @@
-extends RigidBody
+extends KinematicBody
 
 # Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+var gravity = Vector3.DOWN * 12
+var speed = 4
+var jump_speed = 6
+var jump = false
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var velocity = Vector3()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	var spd_x = 0
-	var spd_y = 0
-	var spd_z = 0
+func _physics_process(delta):
+	velocity += gravity * delta
+	get_input()
+	velocity = move_and_slide(velocity, Vector3.UP)
+	if jump == true and is_on_floor():
+		velocity.y = jump_speed
 	
-	if Input.is_key_pressed(KEY_D):
-		spd_x = delta*60
+func get_input():
+	velocity.x = 0
+	velocity.z = 0
 	if Input.is_key_pressed(KEY_A):
-		spd_x = -delta*60
-	if Input.is_key_pressed(KEY_S):
-		spd_z = delta*60
+		velocity += -transform.basis.x * speed
+	if Input.is_key_pressed(KEY_D):
+		velocity += transform.basis.x * speed
 	if Input.is_key_pressed(KEY_W):
-		spd_z = -delta*60
+		velocity += -transform.basis.z * speed
+	if Input.is_key_pressed(KEY_S):
+		velocity += transform.basis.z * speed
+	if Input.is_key_pressed(KEY_LEFT):
+		rotate_y(PI/100)
+	if Input.is_key_pressed(KEY_RIGHT):
+		rotate_y(-PI/100)
+	jump = false
 	if Input.is_key_pressed(KEY_SPACE):
-		spd_y = 2*delta*60
-	
-	add_central_force(Vector3(spd_x, spd_y, spd_z) * 30)
+		jump = true
