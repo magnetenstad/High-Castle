@@ -16,17 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Game"
-run/main_scene="res://Scenes/Spatial.tscn"
-config/icon="res://icon.png"
-
-[autoload]
-
-UserData="*res://addons/github-integration/scripts/user_data.gd"
-IconLoaderGithub="*res://addons/github-integration/scripts/IconLoaderGithub.gd"
+run/main_scene="res://Scene Main/Main.tscn"
+config/icon="res://Assets//icon.png"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "github-integration" )
+enabled=PoolStringArray(  )
 
 [rendering]
 
