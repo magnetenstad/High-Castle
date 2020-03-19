@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/hatman.png" type="Texture" id=1]
 [ext_resource path="res://SceneMain/World.gd" type="Script" id=2]
 [ext_resource path="res://SceneMain/RigidBody.gd" type="Script" id=3]
 [ext_resource path="res://SceneMain/TurretSpawner.gd" type="Script" id=4]
-[ext_resource path="res://SceneMain/Rotate.gd" type="Script" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Camera
@@ -39,7 +38,6 @@ extents = Vector3( 0.248516, 0.542721, 0.286915 )
 script = ExtResource( 2 )
 
 [node name="Rotate" type="Spatial" parent="World"]
-script = ExtResource( 5 )
 
 [node name="Camera" type="Camera" parent="World/Rotate"]
 transform = Transform( 1, 0, 0, 0, 0.899825, 0.436252, 0, -0.436252, 0.899825, -0.00675058, 7.21332, 12.0038 )
