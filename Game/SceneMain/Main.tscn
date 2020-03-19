@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/hatman.png" type="Texture" id=1]
-[ext_resource path="res://Scene Main/RigidBody.gd" type="Script" id=2]
-[ext_resource path="res://Scene Main/TurretSpawner.gd" type="Script" id=3]
-[ext_resource path="res://Scene Main/World.gd" type="Script" id=4]
-[ext_resource path="res://Scene Main/Rotate.gd" type="Script" id=5]
+[ext_resource path="res://SceneMain/World.gd" type="Script" id=2]
+[ext_resource path="res://SceneMain/RigidBody.gd" type="Script" id=3]
+[ext_resource path="res://SceneMain/TurretSpawner.gd" type="Script" id=4]
+[ext_resource path="res://SceneMain/Rotate.gd" type="Script" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Camera
@@ -36,7 +36,7 @@ extents = Vector3( 0.248516, 0.542721, 0.286915 )
 [node name="Main" type="Node"]
 
 [node name="World" type="Spatial" parent="."]
-script = ExtResource( 4 )
+script = ExtResource( 2 )
 
 [node name="Rotate" type="Spatial" parent="World"]
 script = ExtResource( 5 )
@@ -53,7 +53,7 @@ script = SubResource( 1 )
 transform = Transform( 1, 0, 0, 0, 0.916781, 0.399389, 0, -0.399389, 0.916781, 0, 0, 0 )
 
 [node name="TurretSpawner" type="Spatial" parent="World"]
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 
 [node name="Turrets" type="Spatial" parent="World/TurretSpawner"]
 
@@ -62,7 +62,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0 )
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Sprite3D" type="Sprite3D" parent="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.450689, 2.26244, -0.367474 )

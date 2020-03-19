@@ -35,7 +35,7 @@ func _ready():
 
 	var mesh_instance = MeshInstance.new()
 	mesh_instance.mesh = surface_tool.commit()
-	mesh_instance.set_surface_material(0, load("res://Assets/Terrain.tres"))
+	mesh_instance.set_surface_material(0, load("res://Assets/terrain.tres"))
 
 	mesh_instance.create_trimesh_collision()
 

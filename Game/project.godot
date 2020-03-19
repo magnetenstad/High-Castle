@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Game"
-run/main_scene="res://Scene Main/Main.tscn"
+run/main_scene="res://SceneMain/Main.tscn"
 config/icon="res://Assets//icon.png"
 
 [editor_plugins]

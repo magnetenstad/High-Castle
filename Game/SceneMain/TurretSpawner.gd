@@ -1,7 +1,7 @@
 extends Spatial
 
 
-const turret_const = preload("res://Scene Turret/Turret.tscn")
+const turret_const = preload("res://SceneTurret/Turret.tscn")
 
 const ray_length = 1000
 
