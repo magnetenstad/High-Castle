@@ -6,22 +6,34 @@
 [ext_resource path="res://SceneMain/TurretSpawner.gd" type="Script" id=4]
 
 [sub_resource type="GDScript" id=1]
-script/source = "extends Camera
+script/source = "extends Spatial
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	var delta_x = 0
+	var delta_y = 0
+	var delta_z = 0
+	
+	if Input.is_key_pressed(KEY_D):
+		delta_x = 1
+	if Input.is_key_pressed(KEY_A):
+		delta_x = -1
+	if Input.is_key_pressed(KEY_S):
+		delta_z = 1
+	if Input.is_key_pressed(KEY_W):
+		delta_z = -1
+	if Input.is_key_pressed(KEY_SPACE):
+		delta_y = 1
+	if Input.is_key_pressed(KEY_CONTROL):
+		delta_y = -1
+	
+	transform.origin+=(Vector3(delta_x, delta_y, delta_z) * delta * 10)
+	
 "
 
 [sub_resource type="SpatialMaterial" id=2]
