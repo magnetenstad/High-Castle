@@ -1,21 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://SceneMain/World.gd" type="Script" id=1]
 [ext_resource path="res://SceneMain/TurretSpawner.gd" type="Script" id=2]
-[ext_resource path="res://SceneMain/RigidBody.gd" type="Script" id=3]
-[ext_resource path="res://Assets/hatman.png" type="Texture" id=4]
-
-[sub_resource type="SpatialMaterial" id=2]
-params_billboard_mode = 2
-params_use_alpha_scissor = true
-params_alpha_scissor_threshold = 0.98
-
-[sub_resource type="BoxShape" id=3]
-extents = Vector3( 0.248516, 0.542721, 0.286915 )
-
-[sub_resource type="GDScript" id=1]
-script/source = "extends Spatial
-"
+[ext_resource path="res://Enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Node"]
 
@@ -30,28 +18,8 @@ script = ExtResource( 2 )
 
 [node name="Turrets" type="Spatial" parent="World/TurretSpawner"]
 
-[node name="Player" type="KinematicBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0 )
-script = ExtResource( 3 )
+[node name="Enemy" parent="World" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.93277, 12.6355, -0.00128913 )
 
-[node name="Sprite3D" type="Sprite3D" parent="Player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.450689, 2.26244, -0.367474 )
-material_override = SubResource( 2 )
-pixel_size = 0.02
-texture = ExtResource( 4 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.418521, 2.21217, -0.366751 )
-shape = SubResource( 3 )
-
-[node name="Rotate" type="Spatial" parent="Player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0 )
-
-[node name="Camera" type="Camera" parent="Player/Rotate"]
-transform = Transform( 1, 0, 0, 0, 0.899825, 0.436252, 0, -0.436252, 0.899825, -0.231614, 13.7543, 2.30842 )
-fov = 60.0
-size = 17.4974
-near = 0.01
-far = 8192.0
-script = SubResource( 1 )
+[node name="Player" parent="World" instance=ExtResource( 4 )]
 
