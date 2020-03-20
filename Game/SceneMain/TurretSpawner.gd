@@ -1,16 +1,16 @@
 extends Spatial
 
 
-const turret_const = preload("res://SceneTurret/SimpleTurret.tscn")
-const core_const = preload("res://SceneTurret/Core.tscn")
+const TURRET = preload("res://SceneTurret/SimpleTurret.tscn")
+const CORE = preload("res://SceneTurret/Core.tscn")
 
 const ray_length = 1000
 
-var isFirstTurret = true
+var is_first_turret = true
 
 func _input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
-		if(isFirstTurret):
+		if(is_first_turret):
 			var camera = get_viewport().get_camera()
 			var from = camera.project_ray_origin(event.position)
 			var to = from + camera.project_ray_normal(event.position) * ray_length
@@ -24,7 +24,7 @@ func _input(event):
 				result.position.y = round(result.position.y) - .42
 				result.position.z = round(result.position.z - .5) + .5
 				Spawn(result.position, "Core")
-				isFirstTurret = false
+				is_first_turret = false
 				$"/root/Main/World/LevelController".start_level()
 		else:
 			var camera = get_viewport().get_camera()
@@ -46,12 +46,12 @@ func _ready():
 	
 func Spawn(pos, name):
 	if(name == "Turret"):
-		var turret = turret_const.instance()
+		var turret = TURRET.instance()
 		
 		turret.translate(pos)
 		get_node("Turrets").add_child(turret)
 	elif(name == "Core"):
-		var core = core_const.instance()
+		var core = CORE.instance()
 		core.set_name("Core")
 		core.translate(pos)
 		get_node("Turrets").add_child(core)
