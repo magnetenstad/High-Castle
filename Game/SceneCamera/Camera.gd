@@ -1,9 +1,10 @@
 extends Spatial
 
 
-var speed = 8
-var min_speed = 4
-var max_speed = 24
+var speed = 12
+var min_speed = 16
+var max_speed = 36
+var y_speed = 16
 var spin = PI/1024
 var dragging = false
 
@@ -20,10 +21,10 @@ func get_input():
 	velocity.y = 0
 
 	if Input.is_key_pressed(KEY_CONTROL):
-		speed = (speed + max_speed*0.01)/(1+0.01)
+		speed = max_speed
 	else:
 		speed = min_speed
-
+	var vy = velocity.y
 	if Input.is_key_pressed(KEY_A):
 		velocity += -transform.basis.x * speed
 	if Input.is_key_pressed(KEY_D):
@@ -32,10 +33,11 @@ func get_input():
 		velocity += -transform.basis.z * speed
 	if Input.is_key_pressed(KEY_S):
 		velocity += transform.basis.z * speed
+	velocity.y = vy
 	if Input.is_key_pressed(KEY_SHIFT):
-		velocity.y -= speed
+		velocity.y -= y_speed
 	if Input.is_key_pressed(KEY_SPACE):
-		velocity.y += speed
+		velocity.y += y_speed
 	if Input.is_key_pressed(KEY_LEFT):
 		rotate_y(PI/100)
 	if Input.is_key_pressed(KEY_RIGHT):
@@ -48,6 +50,7 @@ func _input(event):
 			dragging = not dragging
 	elif event is InputEventMouseMotion and dragging:
 		rotate_y(-lerp(0, spin, event.relative.x))
+		rotate_object_local(Vector3(1, 0, 0), -lerp(0, spin, event.relative.y))
 	if dragging:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	else:
