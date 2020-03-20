@@ -13,7 +13,7 @@ func _physics_process(delta):
 	velocity.x *= 0.5
 	velocity.z *= 0.5
 	if randf() > 0.995:
-		target = get_node("../Enemy").get_transform().origin + Vector3(randf()*20 - 10, 0, randf()*20-10)
+		target = translation + Vector3(randf()*20 - 10, 0, randf()*20-10)
 	var vy = velocity.y
 	velocity += speed * (target - get_transform().origin).normalized()
 	velocity.y = vy
