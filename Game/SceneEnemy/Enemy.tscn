@@ -1,14 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://SceneEnemy/Enemy.gd" type="Script" id=1]
-[ext_resource path="res://SceneEnemy/Matter_Sphere.tres" type="Material" id=2]
 [ext_resource path="res://Assets/doggo_metal.png" type="Texture" id=3]
 
-[sub_resource type="CubeMesh" id=1]
-
 [sub_resource type="BoxShape" id=2]
-
-[sub_resource type="SphereMesh" id=3]
 
 [node name="Enemy" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -17,20 +12,11 @@ script = ExtResource( 1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.76072, 0 )
 pixel_size = 0.1
 billboard = 2
+shaded = true
+double_sided = false
+alpha_cut = 2
 texture = ExtResource( 3 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0 )
-visible = false
-mesh = SubResource( 1 )
-material/0 = ExtResource( 2 )
-
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 0.25, 0, 0, 0, 0.5, 0, 0, 0, 0.25, -0.00658247, -0.0941074, 0.0482936 )
+transform = Transform( 0.25, 0, 0, 0, 0.5, 0, 0, 0, 0.25, -0.00658247, 0.66331, 0.0482936 )
 shape = SubResource( 2 )
-
-[node name="MeshInstance2" type="MeshInstance" parent="."]
-transform = Transform( 0.25, 0, 0, 0, 0.5, 0, 0, 0, 0.25, 0, -0.125, 0 )
-visible = false
-mesh = SubResource( 3 )
-material/0 = ExtResource( 2 )
