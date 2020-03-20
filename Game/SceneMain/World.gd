@@ -1,19 +1,22 @@
 extends Spatial
 
 var offset = []
-var rng = RandomNumberGenerator.new()
+var noiseHeight = []
 var lastUpdateTimer = 0
 
 func _ready():
 	for i in range(32+1):
 		offset.append([])
 		for j in range(32+1):
-			rng.randomize() 
-			#var rand = rng.randf_range(-100.0, 100.0)
 			offset[i] += [0]
+			
+	for i in range(32+1):
+		noiseHeight.append([])
+		for j in range(32+1):
+			noiseHeight[i] += [0]
 	GenerateMesh()
 	
-func Terraform():
+func Terraform(n):
 	var ray_length = 1000
 	var camera = get_viewport().get_camera()
 	var from = camera.project_ray_origin(get_viewport().get_mouse_position())
@@ -24,18 +27,43 @@ func Terraform():
 	result.position.x = round(result.position.x) + 17
 	result.position.y = round(result.position.y) + 17
 	result.position.z = round(result.position.z) + 17
-	print("x: " + str(result.position.x) + "  " + "z: " + str(result.position.z))
-	offset[-result.position.z][-result.position.x] += .1
-	offset[-result.position.z+1][-result.position.x] += .1
-	offset[-result.position.z+1][-result.position.x+1] += .1
-	offset[-result.position.z][-result.position.x+1] += .1
+	
+	if(n > 0):
+		var lowestNeighbor = min(
+			min(offset[-result.position.z][-result.position.x] + noiseHeight[-result.position.z][-result.position.x],
+			offset[-result.position.z+1][-result.position.x] + noiseHeight[-result.position.z+1][-result.position.x]),
+			min(offset[-result.position.z+1][-result.position.x+1] + noiseHeight[-result.position.z+1][-result.position.x+1],
+			offset[-result.position.z][-result.position.x+1] + noiseHeight[-result.position.z][-result.position.x+1]))
+		
+		
+		offset[-result.position.z][-result.position.x] = max(lowestNeighbor + 1 - noiseHeight[-result.position.z][-result.position.x], offset[-result.position.z][-result.position.x] )
+		offset[-result.position.z+1][-result.position.x] = max(lowestNeighbor + 1 - noiseHeight[-result.position.z+1][-result.position.x], offset[-result.position.z+1][-result.position.x])
+		offset[-result.position.z+1][-result.position.x+1] = max(lowestNeighbor + 1 - noiseHeight[-result.position.z+1][-result.position.x+1], offset[-result.position.z+1][-result.position.x+1])
+		offset[-result.position.z][-result.position.x+1] = max(lowestNeighbor + 1 - noiseHeight[-result.position.z][-result.position.x+1], offset[-result.position.z][-result.position.x+1])
+	else:
+		var highestNeighbor = max(
+			max(offset[-result.position.z][-result.position.x] + noiseHeight[-result.position.z][-result.position.x],
+			offset[-result.position.z+1][-result.position.x] + noiseHeight[-result.position.z+1][-result.position.x]),
+			max(offset[-result.position.z+1][-result.position.x+1] + noiseHeight[-result.position.z+1][-result.position.x+1],
+			offset[-result.position.z][-result.position.x+1] + noiseHeight[-result.position.z][-result.position.x+1]))
+		
+		
+		offset[-result.position.z][-result.position.x] = min(highestNeighbor - 1 - noiseHeight[-result.position.z][-result.position.x], offset[-result.position.z][-result.position.x] )
+		offset[-result.position.z+1][-result.position.x] = min(highestNeighbor - 1 - noiseHeight[-result.position.z+1][-result.position.x], offset[-result.position.z+1][-result.position.x])
+		offset[-result.position.z+1][-result.position.x+1] = min(highestNeighbor - 1 - noiseHeight[-result.position.z+1][-result.position.x+1], offset[-result.position.z+1][-result.position.x+1])
+		offset[-result.position.z][-result.position.x+1] = min(highestNeighbor - 1 - noiseHeight[-result.position.z][-result.position.x+1], offset[-result.position.z][-result.position.x+1])
 	GenerateMesh()
 
-func _process(delta):
-	lastUpdateTimer += delta
-	if(lastUpdateTimer > 0.05) and Input.is_mouse_button_pressed(2):
-		Terraform()
-		lastUpdateTimer = 0
+#func _process(delta):
+#	lastUpdateTimer += delta
+#	if(lastUpdateTimer > 0.5) and Input.is_mouse_button_pressed(2):
+#		lastUpdateTimer = 0
+func _input(event):
+	if event is InputEventMouseButton and event.pressed and event.button_index == 2:
+		if(Input.is_key_pressed(KEY_SHIFT)):
+			Terraform(-1)
+		else:
+			Terraform(1)
 	
 func GenerateMesh():
 	for n in get_children():
@@ -62,8 +90,7 @@ func GenerateMesh():
 	for i in range(data_tool.get_vertex_count()):
 		var vertex = data_tool.get_vertex(i)
 		vertex.y = floor(noise.get_noise_3d(vertex.x, vertex.y, vertex.z) * 10) + offset[floor(i / (plane_mesh.size.x + 1))][i % int(plane_mesh.size.x + 1)]
-		if(vertex.y > 10):
-			print(vertex.y)
+		noiseHeight[floor(i / (plane_mesh.size.x + 1))][i % int(plane_mesh.size.x + 1)] = vertex.y
 		data_tool.set_vertex(i, vertex)
 	
 	for i in range(array_plane.get_surface_count()):
