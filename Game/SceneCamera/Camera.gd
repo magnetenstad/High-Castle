@@ -18,12 +18,12 @@ func get_input():
 	velocity.x = 0
 	velocity.z = 0
 	velocity.y = 0
-	
+
 	if Input.is_key_pressed(KEY_CONTROL):
 		speed = (speed + max_speed*0.01)/(1+0.01)
 	else:
 		speed = min_speed
-	
+
 	if Input.is_key_pressed(KEY_A):
 		velocity += -transform.basis.x * speed
 	if Input.is_key_pressed(KEY_D):
@@ -41,7 +41,7 @@ func get_input():
 	if Input.is_key_pressed(KEY_RIGHT):
 		rotate_y(-PI/100)
 
-	
+
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == 3:
