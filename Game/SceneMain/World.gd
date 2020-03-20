@@ -23,6 +23,8 @@ func Terraform(n):
 	var to = from + camera.project_ray_normal(get_viewport().get_mouse_position()) * ray_length
 	var space_state = get_world().get_direct_space_state()
 	var result = space_state.intersect_ray(from, to)
+	if(result.empty()):
+		return
 	result.position.y += 1
 	result.position.x = round(result.position.x) + 17
 	result.position.y = round(result.position.y) + 17

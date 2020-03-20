@@ -16,6 +16,8 @@ func _input(event):
 			var to = from + camera.project_ray_normal(event.position) * ray_length
 			var space_state = get_world().get_direct_space_state()
 			var result = space_state.intersect_ray(from, to)
+			if(result.empty()):
+				return
 			if(result.collider.name == "Terrain_col"):
 				result.position.y += 1
 				result.position.x = round(result.position.x - .5) + .5
@@ -29,6 +31,8 @@ func _input(event):
 			var to = from + camera.project_ray_normal(event.position) * ray_length
 			var space_state = get_world().get_direct_space_state()
 			var result = space_state.intersect_ray(from, to)
+			if(result.empty()):
+				return
 			if(result.collider.name == "Terrain_col"):
 				result.position.y += 1
 				result.position.x = round(result.position.x - .5) + .5
