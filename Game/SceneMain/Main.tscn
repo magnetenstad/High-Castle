@@ -16,7 +16,7 @@ transform = Transform( 1, 0, 0, 0, 0.916781, 0.399389, 0, -0.399389, 0.916781, 0
 [node name="TurretSpawner" type="Spatial" parent="World"]
 script = ExtResource( 2 )
 
-[node name="Turrets" type="Spatial" parent="World/TurretSpawner"]
+[node name="Turrets" type="Node" parent="World/TurretSpawner"]
 
 [node name="Camera" parent="World" instance=ExtResource( 4 )]
 
