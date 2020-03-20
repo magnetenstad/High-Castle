@@ -2,18 +2,18 @@ extends KinematicBody
 
 # Declare member variables here. Examples:
 var gravity = Vector3.DOWN * 12
-var speed = 2
+var speed = 0.5
 var jump_speed = 4
 var jump = false
-var target = Vector3()
+var target = Vector3(0, 0, 0)
 var velocity = Vector3()
 
 func _physics_process(delta):
 	
 	velocity.x *= 0.5
 	velocity.z *= 0.5
-	
-	target = get_node("../Player").get_transform().origin
+	if randf() > 0.995:
+		target = get_node("../Enemy").get_transform().origin + Vector3(randf()*20 - 10, 0, randf()*20-10)
 	var vy = velocity.y
 	velocity += speed * (target - get_transform().origin).normalized()
 	velocity.y = vy
