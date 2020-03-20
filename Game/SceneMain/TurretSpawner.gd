@@ -25,6 +25,7 @@ func _input(event):
 				result.position.z = round(result.position.z - .5) + .5
 				Spawn(result.position, "Core")
 				isFirstTurret = false
+				$"/root/Main/World/LevelController".start_level()
 		else:
 			var camera = get_viewport().get_camera()
 			var from = camera.project_ray_origin(event.position)
@@ -51,7 +52,7 @@ func Spawn(pos, name):
 		get_node("Turrets").add_child(turret)
 	elif(name == "Core"):
 		var core = core_const.instance()
-		
+		core.set_name("Core")
 		core.translate(pos)
 		get_node("Turrets").add_child(core)
 	pass

@@ -2,8 +2,8 @@
 
 [ext_resource path="res://SceneMain/World.gd" type="Script" id=1]
 [ext_resource path="res://SceneMain/TurretSpawner.gd" type="Script" id=2]
-[ext_resource path="res://SceneEnemy/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://SceneCamera/Camera.tscn" type="PackedScene" id=4]
+[ext_resource path="res://SceneMain/LevelController.gd" type="Script" id=5]
 
 [node name="Main" type="Node"]
 
@@ -18,10 +18,9 @@ script = ExtResource( 2 )
 
 [node name="Turrets" type="Spatial" parent="World/TurretSpawner"]
 
-[node name="Enemy" parent="World" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.93277, 12.6355, -0.00128913 )
-
 [node name="Camera" parent="World" instance=ExtResource( 4 )]
 
-[node name="Enemy2" parent="World" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.5154, -4.09703 )
+[node name="LevelController" type="Node" parent="World"]
+script = ExtResource( 5 )
+
+[node name="Enemies" type="Node" parent="World/LevelController"]
