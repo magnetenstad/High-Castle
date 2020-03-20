@@ -5,9 +5,9 @@ var rng = RandomNumberGenerator.new()
 var lastUpdateTimer = 0
 
 func _ready():
-	for i in range(32+2):
+	for i in range(32+1):
 		offset.append([])
-		for j in range(32+2):
+		for j in range(32+1):
 			rng.randomize() 
 			#var rand = rng.randf_range(-100.0, 100.0)
 			offset[i] += [0]
@@ -21,9 +21,9 @@ func Terraform():
 	var space_state = get_world().get_direct_space_state()
 	var result = space_state.intersect_ray(from, to)
 	result.position.y += 1
-	result.position.x = round(result.position.x) + 18
-	result.position.y = round(result.position.y) + 18
-	result.position.z = round(result.position.z) + 18
+	result.position.x = round(result.position.x) + 17
+	result.position.y = round(result.position.y) + 17
+	result.position.z = round(result.position.z) + 17
 	print("x: " + str(result.position.x) + "  " + "z: " + str(result.position.z))
 	offset[-result.position.z][-result.position.x] += .1
 	offset[-result.position.z+1][-result.position.x] += .1
@@ -47,8 +47,8 @@ func GenerateMesh():
 
 	var plane_mesh = PlaneMesh.new()
 	plane_mesh.size = Vector2(32, 32)
-	plane_mesh.subdivide_depth = plane_mesh.size.x
-	plane_mesh.subdivide_width = plane_mesh.size.x
+	plane_mesh.subdivide_depth = plane_mesh.size.x-1
+	plane_mesh.subdivide_width = plane_mesh.size.x-1
 
 	var surface_tool = SurfaceTool.new()
 	surface_tool.create_from(plane_mesh, 0)
@@ -61,7 +61,7 @@ func GenerateMesh():
 	print(data_tool.get_vertex_count())
 	for i in range(data_tool.get_vertex_count()):
 		var vertex = data_tool.get_vertex(i)
-		vertex.y = floor(noise.get_noise_3d(vertex.x, vertex.y, vertex.z) * 10) + offset[floor(i / (plane_mesh.size.x + 2))][i % int(plane_mesh.size.x + 2)]
+		vertex.y = floor(noise.get_noise_3d(vertex.x, vertex.y, vertex.z) * 10) + offset[floor(i / (plane_mesh.size.x + 1))][i % int(plane_mesh.size.x + 1)]
 		if(vertex.y > 10):
 			print(vertex.y)
 		data_tool.set_vertex(i, vertex)
