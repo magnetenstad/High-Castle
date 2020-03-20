@@ -1,17 +1,13 @@
 extends Spatial
 
 
-var speed = 4
+var speed = 8
 var min_speed = 4
 var max_speed = 24
 var spin = PI/1024
-
-var m3_clicked = false
+var dragging = false
 
 var velocity = Vector3()
-
-func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 func _physics_process(delta):
@@ -44,14 +40,15 @@ func get_input():
 		rotate_y(PI/100)
 	if Input.is_key_pressed(KEY_RIGHT):
 		rotate_y(-PI/100)
-		
-	if Input.is_action_just_pressed("ui_cancel"):
-        if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-            Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-        else:
-            Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			
+
 	
 func _input(event):
-	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED and event is InputEventMouseMotion:
+	if event is InputEventMouseButton:
+		if event.button_index == 3:
+			dragging = not dragging
+	elif event is InputEventMouseMotion and dragging:
 		rotate_y(-lerp(0, spin, event.relative.x))
+	if dragging:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
