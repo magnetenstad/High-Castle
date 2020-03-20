@@ -4,15 +4,17 @@ var offset = []
 var noiseHeight = []
 var lastUpdateTimer = 0
 
+var terrainSize = 64
+
 func _ready():
-	for i in range(32+1):
+	for i in range(terrainSize+1):
 		offset.append([])
-		for j in range(32+1):
+		for j in range(terrainSize+1):
 			offset[i] += [0]
 			
-	for i in range(32+1):
+	for i in range(terrainSize+1):
 		noiseHeight.append([])
-		for j in range(32+1):
+		for j in range(terrainSize+1):
 			noiseHeight[i] += [0]
 	GenerateMesh()
 	
@@ -26,9 +28,9 @@ func Terraform(n):
 	if(result.empty()):
 		return
 	result.position.y += 1
-	result.position.x = round(result.position.x) + 17
-	result.position.y = round(result.position.y) + 17
-	result.position.z = round(result.position.z) + 17
+	result.position.x = round(result.position.x) + terrainSize / 2 + 1
+	result.position.y = round(result.position.y) + terrainSize / 2 + 1
+	result.position.z = round(result.position.z) + terrainSize / 2 + 1
 	
 	if(n > 0):
 		var lowestNeighbor = min(
@@ -76,7 +78,7 @@ func GenerateMesh():
 	noise.octaves = 6
 
 	var plane_mesh = PlaneMesh.new()
-	plane_mesh.size = Vector2(32, 32)
+	plane_mesh.size = Vector2(terrainSize, terrainSize)
 	plane_mesh.subdivide_depth = plane_mesh.size.x-1
 	plane_mesh.subdivide_width = plane_mesh.size.x-1
 
