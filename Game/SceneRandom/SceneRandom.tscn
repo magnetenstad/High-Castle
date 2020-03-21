@@ -2,6 +2,8 @@
 
 [ext_resource path="res://Assets/terrain1.tres" type="Material" id=1]
 
+
+
 [node name="Spatial" type="Spatial"]
 
 [node name="CSGBox" type="CSGBox" parent="."]

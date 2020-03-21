@@ -1,0 +1,9 @@
+[gd_resource type="ParticlesMaterial" load_steps=2 format=2]
+
+[sub_resource type="CurveTexture" id=2]
+
+[resource]
+trail_size_modifier = SubResource( 2 )
+spread = 30.0
+initial_velocity = 80.0
+color = Color( 0.929412, 0.803922, 0.584314, 1 )

@@ -32,7 +32,6 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -342, -98 )
 nodes/fragment/2/node = SubResource( 1 )
 nodes/fragment/2/position = Vector2( -40, 0 )
 nodes/fragment/connections = PoolIntArray( 2, 0, 0, 0 )

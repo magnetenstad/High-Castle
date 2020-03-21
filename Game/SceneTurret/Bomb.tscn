@@ -1,13 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://SceneTurret/BombMaterial.tres" type="Material" id=1]
 [ext_resource path="res://SceneTurret/Bomb.gd" type="Script" id=2]
+[ext_resource path="res://Assets/bomb.tres" type="Material" id=3]
 
 [sub_resource type="SphereShape" id=1]
 
 [sub_resource type="SphereMesh" id=2]
 
 [sub_resource type="CylinderMesh" id=3]
+
+[sub_resource type="SphereMesh" id=4]
 
 [node name="Bomb" type="KinematicBody"]
 script = ExtResource( 2 )
@@ -27,3 +30,12 @@ layers = 4097
 material_override = ExtResource( 1 )
 mesh = SubResource( 3 )
 material/0 = null
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( -1.62921e-08, 0, -0.1, 0, 0.1, 0, 0.1, 0, -1.62921e-08, 0, 0, 0 )
+cast_shadow = 0
+amount = 50
+lifetime = 0.51
+draw_order = 2
+process_material = ExtResource( 3 )
+draw_pass_1 = SubResource( 4 )

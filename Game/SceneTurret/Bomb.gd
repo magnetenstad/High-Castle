@@ -8,7 +8,10 @@ func _ready():
 
 func _physics_process(delta): 
 	velocity.y -= gravity
+	
+	look_at(translation + velocity, Vector3.UP)
 	velocity = move_and_slide(velocity, Vector3.UP)
+	
 	print("HELLO")
 	if is_on_floor():
 		queue_free()

@@ -1,15 +1,12 @@
 extends Spatial
 
-
 var speed = 12
 var min_speed = 16
 var max_speed = 36
 var y_speed = 16
 var spin = PI/1024
 var dragging = false
-
 var velocity = Vector3()
-
 
 func _physics_process(delta):
 	get_input()
@@ -34,6 +31,7 @@ func get_input():
 	if Input.is_key_pressed(KEY_S):
 		velocity += transform.basis.z * speed
 	velocity.y = vy
+	print("transform.basis.z: " + str(transform.basis.z))
 	if Input.is_key_pressed(KEY_SHIFT):
 		velocity.y -= y_speed
 	if Input.is_key_pressed(KEY_SPACE):
@@ -42,7 +40,6 @@ func get_input():
 		rotate_y(PI/100)
 	if Input.is_key_pressed(KEY_RIGHT):
 		rotate_y(-PI/100)
-
 
 func _input(event):
 	if event is InputEventMouseButton:
