@@ -2,7 +2,7 @@
 
 [ext_resource path="res://SceneMain/World.gd" type="Script" id=1]
 [ext_resource path="res://SceneMain/TurretSpawner.gd" type="Script" id=2]
-[ext_resource path="res://Assets/env.tres" type="Environment" id=3]
+[ext_resource path="res://env.tres" type="Environment" id=3]
 [ext_resource path="res://SceneCamera/Camera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://SceneMain/LevelController.gd" type="Script" id=5]
 
