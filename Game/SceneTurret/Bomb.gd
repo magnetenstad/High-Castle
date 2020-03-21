@@ -4,6 +4,7 @@ extends KinematicBody
 var velocity = Vector3()
 var gravity = 1
 var target = Vector3()
+var direction = Vector3()
 
 func _ready():
 	var enemy_positions = []
@@ -16,13 +17,14 @@ func _ready():
 			minimum_distance = pos.distance_to(translation)
 			minimum_distance_position = pos
 	target = minimum_distance_position
-	var direction = (target - translation).normalized()
+	direction = (target - translation).normalized()
 	velocity = 5*direction + 20*Vector3.UP
 
 func _physics_process(delta):
 	velocity.y -= gravity
 
-	look_at(translation + velocity, Vector3.UP)
+	look_at(translation - direction, Vector3.UP)
+	
 	velocity = move_and_slide(velocity, Vector3.UP)
 	if is_on_floor():
 		queue_free()

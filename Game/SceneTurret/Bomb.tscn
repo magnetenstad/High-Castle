@@ -34,7 +34,7 @@ mesh = SubResource( 3 )
 material/0 = null
 
 [node name="Particles" type="Particles" parent="."]
-transform = Transform( -1.62921e-08, 0, -0.1, 0, 0.1, 0, 0.1, 0, -1.62921e-08, 0, 0, 0 )
+transform = Transform( -1.62921e-08, 0, 0.1, 0, 0.1, 0, -0.1, 0, -1.62921e-08, 0, 0, 0 )
 cast_shadow = 0
 amount = 50
 lifetime = 0.51
