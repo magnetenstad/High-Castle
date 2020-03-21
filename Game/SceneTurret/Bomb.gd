@@ -1,4 +1,6 @@
 extends KinematicBody
+
+
 var velocity = Vector3()
 var gravity = 1
 var target = Vector3()
@@ -20,6 +22,11 @@ func _ready():
 func _physics_process(delta): 
 	velocity.y -= gravity
 	velocity = move_and_slide(velocity, Vector3.UP)
-	print("HELLO")
 	if is_on_floor():
+		queue_free()
+
+
+func _on_Area_body_entered(body):
+	if "Enemy" in body.get_name():
+		body.queue_free()
 		queue_free()
