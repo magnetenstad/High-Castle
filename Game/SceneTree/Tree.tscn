@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Assets/tree.png" type="Texture" id=1]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.70641, 0 )
+pixel_size = 0.1
+billboard = 2
+shaded = true
+alpha_cut = 2
+texture = ExtResource( 1 )

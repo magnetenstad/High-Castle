@@ -1,10 +1,12 @@
 extends Spatial
 
+const TREE = preload("res://SceneTree/Tree.tscn")
+
 var offset = []
 var noise_height = []
 var last_update_timer = 0
 
-var terrain_size = 64
+var terrain_size = 128
 
 func _ready():
 	for i in range(terrain_size+1):
@@ -16,7 +18,19 @@ func _ready():
 		noise_height.append([])
 		for j in range(terrain_size+1):
 			noise_height[i] += [0]
+	
 	generate_mesh()
+	
+	var rand_generate = RandomNumberGenerator.new()
+	for i in range(terrain_size):
+		for j in range(terrain_size):
+			if rand_generate.randi_range(0, 1000) == 0:
+				spawn_tree(Vector3(-terrain_size/2 + i, 0, -terrain_size/2 + j))
+
+func spawn_tree(pos):
+	var tree = TREE.instance()
+	tree.translate(pos)
+	get_node("Trees").add_child(tree)
 	
 func terraform(n):
 	var ray_length = 1000
@@ -111,3 +125,5 @@ func generate_mesh():
 
 	mesh_instance.create_trimesh_collision()
 	add_child(mesh_instance)
+
+	

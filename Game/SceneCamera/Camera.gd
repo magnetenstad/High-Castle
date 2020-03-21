@@ -31,7 +31,7 @@ func get_input():
 	if Input.is_key_pressed(KEY_S):
 		velocity += transform.basis.x.cross(Vector3(0, 1, 0)) * speed
 	velocity.y = vy
-	print("transform.basis.z: " + str(transform.basis.z))
+
 	if Input.is_key_pressed(KEY_SHIFT):
 		velocity.y -= y_speed
 	if Input.is_key_pressed(KEY_SPACE):
