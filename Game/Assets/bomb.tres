@@ -1,6 +1,10 @@
-[gd_resource type="ParticlesMaterial" load_steps=2 format=2]
+[gd_resource type="ParticlesMaterial" load_steps=3 format=2]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
 
 [resource]
 trail_size_modifier = SubResource( 2 )
