@@ -9,7 +9,7 @@ var target = Vector3(0, 0, 0)
 var velocity = Vector3()
 
 func _ready():
-	target = $"/root/Main/World/TurretSpawner/Turrets/Core".translation
+	target = $"/root/Main/World/Merchant/Turrets/Core".translation
 
 func _physics_process(delta):
 

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://SceneMain/World.gd" type="Script" id=1]
-[ext_resource path="res://SceneMain/TurretSpawner.gd" type="Script" id=2]
 [ext_resource path="res://Assets/env.tres" type="Environment" id=3]
 [ext_resource path="res://SceneCamera/Camera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://SceneMain/LevelController.gd" type="Script" id=5]
+[ext_resource path="res://SceneMain/VALUES.gd" type="Script" id=6]
+[ext_resource path="res://SceneMerchant/Merchant.tscn" type="PackedScene" id=7]
 
 [node name="Main" type="Node"]
 
@@ -20,14 +21,14 @@ shadow_enabled = true
 
 [node name="Trees" type="Node" parent="World"]
 
-[node name="TurretSpawner" type="Spatial" parent="World"]
-script = ExtResource( 2 )
-
-[node name="Turrets" type="Node" parent="World/TurretSpawner"]
-
 [node name="Camera" parent="World" instance=ExtResource( 4 )]
+
+[node name="Merchant" parent="World" instance=ExtResource( 7 )]
 
 [node name="LevelController" type="Node" parent="World"]
 script = ExtResource( 5 )
 
 [node name="Enemies" type="Node" parent="World/LevelController"]
+
+[node name="VALUES" type="Node" parent="."]
+script = ExtResource( 6 )

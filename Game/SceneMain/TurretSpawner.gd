@@ -39,22 +39,26 @@ func _input(event):
 				result.position.x = round(result.position.x - .5) + .5
 				result.position.y = round(result.position.y) - .42
 				result.position.z = round(result.position.z - .5) + .5
-				Spawn(result.position, "Turret")
+				Spawn(result.position, "SimpleTurret")
 
 func _ready():
 	pass
 	
 func Spawn(pos, name):
-	if(name == "Turret"):
-		var turret = TURRET.instance()
-		
-		turret.translate(pos)
-		get_node("Turrets").add_child(turret)
-	elif(name == "Core"):
-		var core = CORE.instance()
-		core.set_name("Core")
-		core.translate(pos)
-		get_node("Turrets").add_child(core)
-	pass
+	if buy_tower(name):
+		if(name == "SimpleTurret"):
+			var turret = TURRET.instance()
+			
+			turret.translate(pos)
+			get_node("Turrets").add_child(turret)
+		elif(name == "Core"):
+			var core = CORE.instance()
+			core.set_name("Core")
+			core.translate(pos)
+			get_node("Turrets").add_child(core)
+		else:
+			pass
+	else:
+		pass
 
 

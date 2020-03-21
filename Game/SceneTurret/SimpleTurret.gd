@@ -1,7 +1,6 @@
 extends "Turret.gd"
 
 const bomb_const = preload("res://SceneTurret/Bomb.tscn")
-
 func _ready():
 	$ShootTimer.start()
 
