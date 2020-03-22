@@ -13,6 +13,7 @@ const start_balance = 100
 # Constant tower references
 const TURRET = preload("res://SceneTurret/SimpleTurret.tscn")
 const CORE = preload("res://SceneTurret/Core.tscn")
+const TREE = preload("res://SceneTree/Tree.tscn")
 
 # Raytracing constant
 const ray_length = 1000
@@ -37,6 +38,8 @@ func attempt_build(mouse_position):
 					tower = TURRET.instance()
 				"Core":
 					tower = CORE.instance()
+				"Tree":
+					tower = TREE.instance()
 				_:
 					return
 				
