@@ -3,6 +3,7 @@ extends VBoxContainer
 const BUTT = preload("res://SceneGUI/Button.tscn")
 
 func _ready():
+	add_item("Core")
 	add_item("SimpleTurret")
 	add_item("Tree")
 

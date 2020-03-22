@@ -47,11 +47,11 @@ func attempt_build(mouse_position):
 			get_node("Turrets").add_child(tower)
 			tower.set_name(selected_tower)
 			
-			# Temp code
 			if(selected_tower == "Core"):
-				selected_tower = "SimpleTurret"
 				$"/root/Main/World/LevelController".start_level()
-		
+		else:
+			unbuy_tower(selected_tower)
+			
 func raytrace_mouse(mouse_position):
 	var camera = get_viewport().get_camera()
 	var from = camera.project_ray_origin(mouse_position)
@@ -67,10 +67,15 @@ func raytrace_mouse(mouse_position):
 		result.position.z = round(result.position.z - .5) + .5
 	return result.position
 
-
 func buy_tower(tower_type):
 	var tower_price = VALUES.tower_prices[tower_type]
 	if balance >= tower_price:
 		balance -= tower_price
 		return true
 	return false
+
+func unbuy_tower(tower_type):
+	var tower_price = VALUES.tower_prices[tower_type]
+	balance += tower_price
+		
+	
