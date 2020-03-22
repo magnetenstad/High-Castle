@@ -7,6 +7,7 @@ var gravity = 1
 var target = Vector3()
 var direction = Vector3()
 #var is_dying = false
+var origin
 
 const damage = 10
 
@@ -26,8 +27,7 @@ func _physics_process(delta):
 func _on_Area_body_entered(body):
 	print(body.get_name())
 	if "Enemy" in body.get_name():
-		body.health -= damage
-		body.velocity.y = 8
+		body.take_damage(damage, origin)
 		explode()
 	elif body.get_name() == "Terrain_col":
 		explode()

@@ -20,5 +20,6 @@ func _on_ShootTimer_timeout():
 		var bomb = bomb_const.instance()
 		bomb.direction = (body.translation - translation).normalized()
 		bomb.translate(translation + Vector3(0, 1, 0))
+		bomb.origin = self
 		get_node("Bombs").add_child(bomb)
 		loaded = false
