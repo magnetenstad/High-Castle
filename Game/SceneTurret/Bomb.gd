@@ -21,15 +21,17 @@ func _physics_process(delta):
 
 	velocity = move_and_slide(velocity, Vector3.UP)
 
-	if is_on_floor():
-		explode()
 
 
 func _on_Area_body_entered(body):
+	print(body.get_name())
 	if "Enemy" in body.get_name():
 		body.health -= damage
 		body.velocity.y = 8
 		explode()
+	elif body.get_name() == "Terrain_col":
+		explode()
+
 
 
 func explode():
