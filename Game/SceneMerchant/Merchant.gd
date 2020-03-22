@@ -4,7 +4,7 @@ extends Spatial
 # Create variables
 var selected_tower
 var balance
-var is_first_tower = true
+var core_placed = false
 
 # Constant values
 const start_balance = 100
@@ -28,11 +28,8 @@ func _input(event):
 		attempt_build(event.position)
 
 func attempt_build(mouse_position):
-	if(selected_tower == "Core"):
-		if(is_first_tower):
-			is_first_tower = false
-		else:
-			return
+	if selected_tower == "Core" and core_placed:
+		return
 	var tower_price = get_price(selected_tower)
 	if balance >= tower_price:
 		# target_position is the spawn position on the map
@@ -44,6 +41,9 @@ func attempt_build(mouse_position):
 			get_node("Turrets").add_child(tower)
 			tower.set_name(selected_tower)
 			balance -= tower_price
+			if selected_tower == "Core":
+				core_placed = true
+			
 			
 func raytrace_mouse(mouse_position):
 	var camera = get_viewport().get_camera()
