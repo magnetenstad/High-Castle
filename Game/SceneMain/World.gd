@@ -21,16 +21,18 @@ func _ready():
 	
 	generate_mesh()
 	
-	var rand_generate = RandomNumberGenerator.new()
-	for i in range(terrain_size):
-		for j in range(terrain_size):
-			if rand_generate.randi_range(0, 1000) == 0:
-				spawn_tree(Vector3(-terrain_size/2 + i, 0, -terrain_size/2 + j))
+	# Trees
+	
+#	var rand_generate = RandomNumberGenerator.new()
+#	for i in range(terrain_size):
+#		for j in range(terrain_size):
+#			if rand_generate.randi_range(0, 1000) == 0:
+#				spawn_tree(Vector3(-terrain_size/2 + i, 0, -terrain_size/2 + j))
 
-func spawn_tree(pos):
-	var tree = TREE.instance()
-	tree.translate(pos)
-	get_node("Trees").add_child(tree)
+#func spawn_tree(pos):
+#	var tree = TREE.instance()
+#	tree.translate(pos)
+#	get_node("Trees").add_child(tree)
 	
 func terraform(n):
 	var ray_length = 1000
@@ -76,6 +78,7 @@ func terraform(n):
 #	lastUpdateTimer += delta
 #	if(lastUpdateTimer > 0.5) and Input.is_mouse_button_pressed(2):
 #		lastUpdateTimer = 0
+
 func _input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == 2:
 		if(Input.is_key_pressed(KEY_SHIFT)):
@@ -125,5 +128,29 @@ func generate_mesh():
 
 	mesh_instance.create_trimesh_collision()
 	add_child(mesh_instance)
+	
+	# Water:
+	
+	plane_mesh = PlaneMesh.new()
+	plane_mesh.size = Vector2(terrain_size, terrain_size)
+	
+	surface_tool = SurfaceTool.new()
+	surface_tool.create_from(plane_mesh, 0)
 
+	array_plane = surface_tool.commit()
+
+	data_tool = MeshDataTool.new()
+
+	data_tool.create_from_surface(array_plane, 0)
+	data_tool.commit_to_surface(array_plane)
+	surface_tool.begin(Mesh.PRIMITIVE_TRIANGLES)
+	surface_tool.create_from(array_plane, 0)
+	surface_tool.generate_normals()
+
+	mesh_instance = MeshInstance.new()
+	mesh_instance.set_name("Water")
+	mesh_instance.mesh = surface_tool.commit()
+	mesh_instance.set_surface_material(0, load("res://Assets/water.tres"))
+	mesh_instance.translate(mesh_instance.translation + Vector3(0, -0.5, 0))
+	add_child(mesh_instance)
 	

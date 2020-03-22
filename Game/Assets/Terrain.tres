@@ -15,7 +15,9 @@ uniform vec3 uv2_scale;
 uniform vec3 uv2_offset;
 
 uniform vec4 sand_color : hint_color = vec4(0.9, 0.9, 0.6, 1.0);
-uniform vec4 grass_color : hint_color = vec4(0.5, 01.0, 0.5, 1.0);
+uniform vec4 grass_color : hint_color = vec4(0.5, 1.0, 0.5, 1.0);
+uniform vec4 stone_color : hint_color = vec4(0.5, 0.5, 0.5, 1.0);
+
 varying flat vec3 out_color;
 
 vec3 lerpColor(vec4 a, vec4 b, float t) {
@@ -32,6 +34,8 @@ void vertex() {
 	
 	if (VERTEX.y > 0.0) {
 		out_color = lerpColor(sand_color, grass_color, clamp((VERTEX.y) / 3.0, 0.0, 1.0));
+	} else if (VERTEX.y < -1.0) {
+		out_color = lerpColor(sand_color, stone_color, clamp((-VERTEX.y) / 3.0, 0.0, 1.0));
 	}
 }
 
@@ -47,7 +51,7 @@ void fragment() {
 
 [resource]
 shader = SubResource( 1 )
-shader_param/albedo = Color( 0.168627, 0.615686, 0.243137, 1 )
+shader_param/albedo = Color( 0, 0, 0, 1 )
 shader_param/specular = 0.1
 shader_param/metallic = 0.1
 shader_param/roughness = 0.8
@@ -56,5 +60,6 @@ shader_param/uv1_scale = Vector3( 1, 1, 1 )
 shader_param/uv1_offset = Vector3( 0, 0, 0 )
 shader_param/uv2_scale = Vector3( 1, 1, 1 )
 shader_param/uv2_offset = Vector3( 0, 0, 0 )
-shader_param/sand_color = Color( 0.9, 0.9, 0.6, 1 )
-shader_param/grass_color = Color( 0.5, 1, 0.5, 1 )
+shader_param/sand_color = Color( 0.839216, 0.796078, 0.541176, 1 )
+shader_param/grass_color = Color( 0.298039, 0.737255, 0.215686, 1 )
+shader_param/stone_color = Color( 0.5, 0.5, 0.5, 1 )

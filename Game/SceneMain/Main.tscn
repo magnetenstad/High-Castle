@@ -1,13 +1,19 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://SceneMain/World.gd" type="Script" id=1]
-[ext_resource path="res://Assets/env.tres" type="Environment" id=3]
+[ext_resource path="res://SceneGUI/GUI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://env.tres" type="Environment" id=3]
 [ext_resource path="res://SceneCamera/Camera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://SceneMain/LevelController.gd" type="Script" id=5]
 [ext_resource path="res://SceneMain/VALUES.gd" type="Script" id=6]
 [ext_resource path="res://SceneMerchant/Merchant.tscn" type="PackedScene" id=7]
 
 [node name="Main" type="Node"]
+
+[node name="VALUES" type="Node" parent="."]
+script = ExtResource( 6 )
+
+[node name="GUI" parent="." instance=ExtResource( 2 )]
 
 [node name="World" type="Spatial" parent="."]
 script = ExtResource( 1 )
@@ -18,6 +24,7 @@ environment = ExtResource( 3 )
 [node name="DirectionalLight" type="DirectionalLight" parent="World"]
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0 )
 shadow_enabled = true
+shadow_contact = 0.1
 
 [node name="Trees" type="Node" parent="World"]
 
@@ -29,6 +36,3 @@ shadow_enabled = true
 script = ExtResource( 5 )
 
 [node name="Enemies" type="Node" parent="World/LevelController"]
-
-[node name="VALUES" type="Node" parent="."]
-script = ExtResource( 6 )

@@ -10,8 +10,8 @@ extents = Vector3( 3.59743, 2.45921, 5.22842 )
 script = ExtResource( 1 )
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62384, 0 )
-pixel_size = 0.1
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.803116, 0 )
+pixel_size = 0.05
 billboard = 2
 shaded = true
 double_sided = false
