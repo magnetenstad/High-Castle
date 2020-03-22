@@ -7,19 +7,11 @@ var target = Vector3()
 var direction = Vector3()
 var is_dying = false
 
+const damage = 10
+
 func _ready():
-	var enemy_positions = []
-	for enemy in $"/root/Main/World/LevelController/Enemies".get_children():
-		enemy_positions.append(enemy.translation)
-	var minimum_distance = pow(10, 9)
-	var minimum_distance_position = Vector3()
-	for pos in enemy_positions:
-		if (pos.distance_to(translation)) < minimum_distance:
-			minimum_distance = pos.distance_to(translation)
-			minimum_distance_position = pos
-	target = minimum_distance_position
-	direction = (target - translation).normalized()
 	velocity = 5*direction + 20*Vector3.UP
+		
 
 func _physics_process(delta):
 	velocity.y -= gravity
@@ -27,16 +19,12 @@ func _physics_process(delta):
 	look_at(translation - direction, Vector3.UP)
 	
 	velocity = move_and_slide(velocity, Vector3.UP)
-	if is_on_floor() and not is_dying:
-		$DeathTimer.start()
-		is_dying = true
+	if is_on_floor():
+		queue_free()
 
 
 func _on_Area_body_entered(body):
 	if "Enemy" in body.get_name():
-		body.queue_free()
+		body.health -= damage
+		body.velocity.y = 8
 		queue_free()
-
-
-func _on_DeathTimer_timeout():
-	queue_free()

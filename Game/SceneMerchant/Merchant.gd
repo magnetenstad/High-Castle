@@ -1,22 +1,22 @@
 extends Spatial
 
-# Currency
-var balance = 0
 
-# Variable for tower selection
+# Create variables
 var selected_tower
+var balance
 
 # Constant values
-const VALUES = preload("res://SceneMain/VALUES.gd")
 const start_balance = 100
 
-# Constant tower references
-const TURRET = preload("res://SceneTurret/SimpleTurret.tscn")
-const CORE = preload("res://SceneTurret/Core.tscn")
-const TREE = preload("res://SceneTree/Tree.tscn")
-
-# Raytracing constant
+# Technical constants
 const ray_length = 1000
+const VALUES = preload("res://SceneMain/VALUES.gd")
+const tower_preloads = {
+	"SimpleTurret": preload("res://SceneTurret/SimpleTurret.tscn"),
+	"Core": preload("res://SceneTurret/Core.tscn"),
+	"Tree": preload("res://SceneTree/Tree.tscn")
+}
+
 
 func _ready():
 	balance = start_balance
@@ -27,30 +27,20 @@ func _input(event):
 		attempt_build(event.position)
 
 func attempt_build(mouse_position):
-	if buy_tower(selected_tower):
+	var tower_price = get_price(selected_tower)
+	if balance >= tower_price:
 		# target_position is the spawn position on the map
 		var target_position = raytrace_mouse(mouse_position)
 		if target_position:
-			var tower
+			var tower = tower_preloads[selected_tower].instance()
 			
-			match selected_tower:
-				"SimpleTurret":
-					tower = TURRET.instance()
-				"Core":
-					tower = CORE.instance()
-				"Tree":
-					tower = TREE.instance()
-				_:
-					return
-				
 			tower.translate(target_position)
 			get_node("Turrets").add_child(tower)
 			tower.set_name(selected_tower)
+			balance -= tower_price
 			
 			if(selected_tower == "Core"):
 				$"/root/Main/World/LevelController".start_level()
-		else:
-			unbuy_tower(selected_tower)
 			
 func raytrace_mouse(mouse_position):
 	var camera = get_viewport().get_camera()
@@ -67,15 +57,7 @@ func raytrace_mouse(mouse_position):
 		result.position.z = round(result.position.z - .5) + .5
 	return result.position
 
-func buy_tower(tower_type):
-	var tower_price = VALUES.tower_prices[tower_type]
-	if balance >= tower_price:
-		balance -= tower_price
-		return true
-	return false
+func get_price(tower_type):
+	return VALUES.tower_prices[tower_type]
 
-func unbuy_tower(tower_type):
-	var tower_price = VALUES.tower_prices[tower_type]
-	balance += tower_price
-		
 	

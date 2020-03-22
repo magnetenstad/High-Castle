@@ -8,8 +8,13 @@ var jump = false
 var target = Vector3(0, 0, 0)
 var velocity = Vector3()
 
+var health = 1
+const max_health = 20
+
 func _ready():
 	target = $"/root/Main/World/Merchant/Turrets/Core".translation
+	health = max_health
+	name = "Enemy"
 
 func _physics_process(delta):
 
@@ -24,3 +29,7 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector3.UP)
 	if is_on_floor():
 		velocity.y = jump_speed
+	
+	if health <= 0:
+		queue_free()
+	$Sprite3D.modulate = Color(1, health/float(max_health), health/float(max_health))
