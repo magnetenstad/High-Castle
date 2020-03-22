@@ -59,20 +59,11 @@ draw_pass_1 = SubResource( 5 )
 [node name="Area" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
-transform = Transform( 0.22, 0, 0, 0, 0.22, 0, 0, 0, 0.22, 0, 0, 0 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 shape = SubResource( 6 )
-
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
-shape = SubResource( 1 )
-
-[node name="DeathTimer" type="Timer" parent="."]
-wait_time = 0.25
-one_shot = true
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 pixel_size = 0.05
 billboard = 1
 texture = ExtResource( 5 )
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
-[connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]

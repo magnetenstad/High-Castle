@@ -4,15 +4,13 @@
 [ext_resource path="res://Assets/turretBase.png" type="Texture" id=2]
 [ext_resource path="res://SceneTurret/Core.gd" type="Script" id=3]
 
-
-
 [sub_resource type="SpatialMaterial" id=1]
 params_billboard_mode = 2
 params_use_alpha_scissor = true
 params_alpha_scissor_threshold = 0.98
 
 [sub_resource type="BoxShape" id=2]
-extents = Vector3( 0.222641, 0.495996, 0.221685 )
+extents = Vector3( 0.446944, 0.0330977, 0.433508 )
 
 [node name="Turret" type="StaticBody"]
 script = ExtResource( 3 )
@@ -29,5 +27,5 @@ pixel_size = 0.02
 texture = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.424762, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.570864, 0 )
 shape = SubResource( 2 )
