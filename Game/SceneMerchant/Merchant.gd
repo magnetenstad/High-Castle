@@ -45,9 +45,6 @@ func attempt_build(mouse_position):
 			tower.set_name(selected_tower)
 			balance -= tower_price
 			
-			if(selected_tower == "Core"):
-				$"/root/Main/World/LevelController".start_level()
-			
 func raytrace_mouse(mouse_position):
 	var camera = get_viewport().get_camera()
 	var from = camera.project_ray_origin(mouse_position)

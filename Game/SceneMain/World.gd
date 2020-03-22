@@ -88,7 +88,7 @@ func _input(event):
 	
 func generate_mesh():
 	for n in get_children():
-		if(n.get_name() == "Terrain"):
+		if(n.get_name() == "Terrain" || n.get_name() == "Water"):
 			remove_child(n)
 	var noise = OpenSimplexNoise.new()
 	noise.period = 80
@@ -129,11 +129,11 @@ func generate_mesh():
 	mesh_instance.create_trimesh_collision()
 	add_child(mesh_instance)
 	
-	# Water:
-	
+#	Water:
+
 	plane_mesh = PlaneMesh.new()
 	plane_mesh.size = Vector2(terrain_size, terrain_size)
-	
+
 	surface_tool = SurfaceTool.new()
 	surface_tool.create_from(plane_mesh, 0)
 
@@ -153,4 +153,4 @@ func generate_mesh():
 	mesh_instance.set_surface_material(0, load("res://Assets/water.tres"))
 	mesh_instance.translate(mesh_instance.translation + Vector3(0, -0.5, 0))
 	add_child(mesh_instance)
-	
+
