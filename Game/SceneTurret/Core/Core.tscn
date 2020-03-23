@@ -12,7 +12,9 @@ params_alpha_scissor_threshold = 0.98
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.446944, 0.0330977, 0.433508 )
 
-[node name="Turret" type="StaticBody"]
+[node name="Turret" type="StaticBody" groups=[
+"Turrets",
+]]
 script = ExtResource( 3 )
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
