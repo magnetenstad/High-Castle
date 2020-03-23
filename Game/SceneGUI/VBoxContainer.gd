@@ -7,8 +7,9 @@ func _ready():
 	add_item("SimpleTurret", "Tower")
 	add_item("PiTower", "Tower")
 	add_item("Tree", "Tower")
+	add_item("Spawner", "Tower")
 	add_item("Start Wave", "Wave")
-
+	
 func add_item(item, button_type):
 	var butt = BUTT.instance()
 	butt.item = item
