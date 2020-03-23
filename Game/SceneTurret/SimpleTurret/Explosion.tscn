@@ -2,7 +2,8 @@
 
 [ext_resource path="res://SceneTurret/ExplosionLight.tres" type="Material" id=1]
 [ext_resource path="res://SceneTurret/ExplosionDark.tres" type="Material" id=2]
-[ext_resource path="res://SceneTurret/Explosion.gd" type="Script" id=3]
+[ext_resource path="res://SceneTurret/SimpleTurret/Explosion.gd" type="Script" id=3]
+
 
 [sub_resource type="Curve" id=2]
 _data = [ Vector2( 0, 0 ), 0.0, 4.66534, 0, 0, Vector2( 1, 0.743098 ), -3.87556, 0.0, 0, 0 ]
