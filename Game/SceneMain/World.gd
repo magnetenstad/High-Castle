@@ -79,7 +79,7 @@ func terraform(n):
 #	if(lastUpdateTimer > 0.5) and Input.is_mouse_button_pressed(2):
 #		lastUpdateTimer = 0
 
-func _input(event):
+func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == 2:
 		if(Input.is_key_pressed(KEY_SHIFT)):
 			terraform(-1)

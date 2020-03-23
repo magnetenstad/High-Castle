@@ -1,3 +1,0 @@
-extends "Turret.gd"
-
-

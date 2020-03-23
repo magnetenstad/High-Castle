@@ -13,8 +13,9 @@ const start_balance = 100
 const ray_length = 1000
 const VALUES = preload("res://SceneMain/VALUES.gd")
 const tower_preloads = {
-	"SimpleTurret": preload("res://SceneTurret/SimpleTurret.tscn"),
-	"Core": preload("res://SceneTurret/Core.tscn"),
+	"PiTower": preload("res://SceneTurret/PiTower/PiTower.tscn"),
+	"SimpleTurret": preload("res://SceneTurret/SimpleTurret/SimpleTurret.tscn"),
+	"Core": preload("res://SceneTurret/Core/Core.tscn"),
 	"Tree": preload("res://SceneTree/Tree.tscn")
 }
 
@@ -23,7 +24,7 @@ func _ready():
 	balance = start_balance
 	selected_tower = "Core"
 
-func _input(event):
+func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
 		attempt_build(event.position)
 

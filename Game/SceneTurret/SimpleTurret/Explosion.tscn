@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://SceneTurret/ExplosionLight.tres" type="Material" id=1]
+[ext_resource path="res://SceneTurret/ExplosionDark.tres" type="Material" id=2]
+[ext_resource path="res://SceneTurret/Explosion.gd" type="Script" id=3]
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 0 ), 0.0, 4.66534, 0, 0, Vector2( 1, 0.743098 ), -3.87556, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=3]
+curve = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3( 0, 1, 0 )
+spread = 90.0
+flatness = 0.2
+gravity = Vector3( 0, -9.81, 0 )
+initial_velocity = 8.0
+scale_curve = SubResource( 3 )
+
+[sub_resource type="QuadMesh" id=6]
+material = ExtResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3( 0, 1, 0 )
+spread = 90.0
+flatness = 0.2
+gravity = Vector3( 0, -2, 0 )
+initial_velocity = 2.0
+damping = 2.0
+scale_curve = SubResource( 3 )
+
+[sub_resource type="QuadMesh" id=5]
+material = ExtResource( 2 )
+
+[node name="Spatial" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="Spatial2" type="Particles" parent="."]
+cast_shadow = 0
+amount = 20
+lifetime = 4.0
+speed_scale = 2.0
+explosiveness = 1.0
+process_material = SubResource( 4 )
+draw_pass_1 = SubResource( 6 )
+
+[node name="Spatial3" type="Particles" parent="."]
+cast_shadow = 0
+amount = 5
+lifetime = 2.0
+speed_scale = 2.0
+explosiveness = 1.0
+process_material = SubResource( 7 )
+draw_pass_1 = SubResource( 5 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
