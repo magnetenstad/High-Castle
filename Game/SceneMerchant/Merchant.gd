@@ -16,7 +16,8 @@ const tower_preloads = {
 	"PiTower": preload("res://SceneTurret/PiTower/PiTower.tscn"),
 	"SimpleTurret": preload("res://SceneTurret/SimpleTurret/SimpleTurret.tscn"),
 	"Core": preload("res://SceneTurret/Core/Core.tscn"),
-	"Tree": preload("res://SceneTree/Tree.tscn")
+	"Tree": preload("res://SceneTree/Tree.tscn"),
+	"Spawner": preload("res://SceneSpawner/Spawner.tscn")
 }
 
 
