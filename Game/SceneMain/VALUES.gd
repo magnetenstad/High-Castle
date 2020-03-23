@@ -2,7 +2,7 @@ extends Node
 	
 
 const tower_prices = {
-	"PiTower": 25,
+	"PiTower": 60,
 	"SimpleTurret": 10,
 	"Core": 0,
 	"Tree": 1

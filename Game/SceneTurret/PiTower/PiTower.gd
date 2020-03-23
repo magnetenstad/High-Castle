@@ -3,7 +3,7 @@ extends "res://SceneTurret/Turret.gd"
 var loaded = false
 var rotating = 0
 var enemies = []
-const damage = 3
+const damage = 2
 
 func _ready():
 	$FireTimer.start()
@@ -22,5 +22,5 @@ func _on_FireTimer_timeout():
 	enemies.clear()
 	for overlap in $Area.get_overlapping_bodies():
 		if "Enemy" in overlap.name:
-			overlap.health -= damage
+			overlap.take_damage(damage, self)
 	rotating += 1
