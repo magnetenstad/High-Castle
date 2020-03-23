@@ -22,3 +22,8 @@ func _on_ShootTimer_timeout():
 		bomb.translate(translation + Vector3(0, 1, 0))
 		get_node("Bombs").add_child(bomb)
 		loaded = false
+
+func _process(delta):
+	var mat = get_node("Area/CSGSphere").get_material()
+	mat.set_shader_param("time", OS.get_ticks_msec())
+	

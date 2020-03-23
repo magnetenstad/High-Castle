@@ -2,7 +2,7 @@
 
 [sub_resource type="Shader" id=1]
 code = "shader_type spatial;
-render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx;
 uniform vec4 albedo : hint_color;
 uniform sampler2D texture_albedo : hint_albedo;
 uniform float specular;
@@ -14,24 +14,28 @@ uniform vec3 uv1_offset;
 uniform vec3 uv2_scale;
 uniform vec3 uv2_offset;
 
+uniform float time;
+varying float height;
+
 void vertex() {
 	UV=UV*uv1_scale.xy+uv1_offset.xy;
+	height = VERTEX.y + sin(VERTEX.x + VERTEX.y + time/999.0);
 }
 
 void fragment() {
 	vec2 base_uv = UV;
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
-	ALBEDO = albedo.rgb * albedo_tex.rgb;
-	METALLIC = metallic;
-	ROUGHNESS = roughness;
-	SPECULAR = specular;
-	ALPHA = 0.2;
+	ALBEDO = albedo.rgb; //* albedo_tex.rgb;
+	//METALLIC = metallic;
+	//ROUGHNESS = roughness;
+	//SPECULAR = specular;
+	ALPHA = clamp(0.8 - abs(height), 0, 1);
 }
 "
 
 [resource]
 shader = SubResource( 1 )
-shader_param/albedo = Color( 0.0627451, 0.627451, 0, 1 )
+shader_param/albedo = Color( 0, 0.498039, 1, 1 )
 shader_param/specular = null
 shader_param/metallic = null
 shader_param/roughness = null
@@ -40,3 +44,4 @@ shader_param/uv1_scale = null
 shader_param/uv1_offset = null
 shader_param/uv2_scale = null
 shader_param/uv2_offset = null
+shader_param/time = null

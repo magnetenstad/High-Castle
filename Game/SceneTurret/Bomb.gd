@@ -37,7 +37,7 @@ func _on_Area_body_entered(body):
 func explode():
 	var particles = EXPLOSION.instance()
 	$"/root/Main/World".add_child(particles)
-	particles.transform = transform
+	particles.translation = translation
 	for child in particles.get_children():
 		child.one_shot = true
 	queue_free()

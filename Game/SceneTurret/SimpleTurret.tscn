@@ -45,6 +45,9 @@ transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0 )
 shape = SubResource( 3 )
 
 [node name="CSGSphere" type="CSGSphere" parent="Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.595096, 0 )
+cast_shadow = 0
 radius = 5.0
+radial_segments = 32
 material = ExtResource( 4 )
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
