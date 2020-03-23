@@ -41,7 +41,7 @@ func get_input():
 	if Input.is_key_pressed(KEY_RIGHT):
 		rotate_y(-PI/100)
 
-func _input(event):
+func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == 3:
 			dragging = not dragging

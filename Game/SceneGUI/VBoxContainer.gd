@@ -5,6 +5,7 @@ const BUTT = preload("res://SceneGUI/Button.tscn")
 func _ready():
 	add_item("Core", "Tower")
 	add_item("SimpleTurret", "Tower")
+	add_item("PiTower", "Tower")
 	add_item("Tree", "Tower")
 	add_item("Start Wave", "Wave")
 
