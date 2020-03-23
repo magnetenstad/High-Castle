@@ -43,10 +43,8 @@ func terraform(n):
 	var result = space_state.intersect_ray(from, to)
 	if(result.empty()):
 		return
-	result.position.y += 1
-	result.position.x = round(result.position.x) + terrain_size / 2 + 1
-	result.position.y = round(result.position.y) + terrain_size / 2 + 1
-	result.position.z = round(result.position.z) + terrain_size / 2 + 1
+	result.position.x = round(result.position.x + 1.5) + terrain_size / 2
+	result.position.z = round(result.position.z + 1.5) + terrain_size / 2
 	
 	if(n > 0):
 		var lowest_neighbor = min(
