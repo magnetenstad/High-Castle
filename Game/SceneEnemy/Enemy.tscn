@@ -20,3 +20,8 @@ texture = ExtResource( 3 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 shape = SubResource( 1 )
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
