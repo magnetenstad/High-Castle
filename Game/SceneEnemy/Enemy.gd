@@ -57,3 +57,4 @@ func take_damage(amount, origin):
 	$Sprite3D.modulate = Color(1, health/float(health_max), health/float(health_max))
 	if health <= 0:
 		queue_free()
+		$"/root/Main/World/Merchant".balance += 5
