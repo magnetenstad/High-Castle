@@ -33,7 +33,28 @@ func _ready():
 #	var tree = TREE.instance()
 #	tree.translate(pos)
 #	get_node("Trees").add_child(tree)
+
+func try_change(x, z, n):
+	print(str(x) + "  " + str(z))
+	var success = false
+	var height_neighbors = [
+		offset[-z][-x] + noise_height[-z][-x],
+		offset[-z+1][-x] + noise_height[-z+1][-x],
+		offset[-z+1][-x+1] + noise_height[-z+1][-x+1],
+		offset[-z][-x+1] + noise_height[-z][-x+1],
+		offset[-z-1][-x+1] + noise_height[-z-1][-x+1],
+		offset[-z-1][-x] + noise_height[-z-1][-x],
+		offset[-z-1][-x-1] + noise_height[-z-1][-x-1],
+		offset[-z][-x-1] + noise_height[-z][-x-1],
+		offset[-z+1][-x-1] + noise_height[-z+1][-x-1]]
 	
+#	print(height_neighbors)
+#	print(offset[-z][-x] + noise_height[-z][-x])
+	if(n>0):
+		if(height_neighbors.max() - (offset[-z][-x] + noise_height[-z][-x]) >= 0 &&
+		 height_neighbors.min() - (offset[-z][-x] + noise_height[-z][-x]) >= 0):
+			offset[-z][-x] += n
+
 func terraform(n):
 	var ray_length = 1000
 	var camera = get_viewport().get_camera()
@@ -43,33 +64,38 @@ func terraform(n):
 	var result = space_state.intersect_ray(from, to)
 	if(result.empty()):
 		return
-	result.position.x = round(result.position.x + 1.5) + terrain_size / 2
-	result.position.z = round(result.position.z + 1.5) + terrain_size / 2
+	result.position.x = round(result.position.x + .75) + terrain_size / 2
+	result.position.z = round(result.position.z + .75) + terrain_size / 2
 	
-	if(n > 0):
-		var lowest_neighbor = min(
-			min(offset[-result.position.z][-result.position.x] + noise_height[-result.position.z][-result.position.x],
-			offset[-result.position.z+1][-result.position.x] + noise_height[-result.position.z+1][-result.position.x]),
-			min(offset[-result.position.z+1][-result.position.x+1] + noise_height[-result.position.z+1][-result.position.x+1],
-			offset[-result.position.z][-result.position.x+1] + noise_height[-result.position.z][-result.position.x+1]))
-		
-		
-		offset[-result.position.z][-result.position.x] = max(lowest_neighbor + 1 - noise_height[-result.position.z][-result.position.x], offset[-result.position.z][-result.position.x] )
-		offset[-result.position.z+1][-result.position.x] = max(lowest_neighbor + 1 - noise_height[-result.position.z+1][-result.position.x], offset[-result.position.z+1][-result.position.x])
-		offset[-result.position.z+1][-result.position.x+1] = max(lowest_neighbor + 1 - noise_height[-result.position.z+1][-result.position.x+1], offset[-result.position.z+1][-result.position.x+1])
-		offset[-result.position.z][-result.position.x+1] = max(lowest_neighbor + 1 - noise_height[-result.position.z][-result.position.x+1], offset[-result.position.z][-result.position.x+1])
-	else:
-		var highest_neighbor = max(
-			max(offset[-result.position.z][-result.position.x] + noise_height[-result.position.z][-result.position.x],
-			offset[-result.position.z+1][-result.position.x] + noise_height[-result.position.z+1][-result.position.x]),
-			max(offset[-result.position.z+1][-result.position.x+1] + noise_height[-result.position.z+1][-result.position.x+1],
-			offset[-result.position.z][-result.position.x+1] + noise_height[-result.position.z][-result.position.x+1]))
-		
-		
-		offset[-result.position.z][-result.position.x] = min(highest_neighbor - 1 - noise_height[-result.position.z][-result.position.x], offset[-result.position.z][-result.position.x] )
-		offset[-result.position.z+1][-result.position.x] = min(highest_neighbor - 1 - noise_height[-result.position.z+1][-result.position.x], offset[-result.position.z+1][-result.position.x])
-		offset[-result.position.z+1][-result.position.x+1] = min(highest_neighbor - 1 - noise_height[-result.position.z+1][-result.position.x+1], offset[-result.position.z+1][-result.position.x+1])
-		offset[-result.position.z][-result.position.x+1] = min(highest_neighbor - 1 - noise_height[-result.position.z][-result.position.x+1], offset[-result.position.z][-result.position.x+1])
+	try_change(result.position.x, result.position.z, n)
+	try_change(result.position.x+1, result.position.z, n)
+	try_change(result.position.x+1, result.position.z+1, n)
+	try_change(result.position.x, result.position.z+1, n)
+	
+#	if(n > 0):
+#		var lowest_neighbor = min(
+#			min(offset[-result.position.z][-result.position.x] + noise_height[-result.position.z][-result.position.x],
+#			offset[-result.position.z+1][-result.position.x] + noise_height[-result.position.z+1][-result.position.x]),
+#			min(offset[-result.position.z+1][-result.position.x+1] + noise_height[-result.position.z+1][-result.position.x+1],
+#			offset[-result.position.z][-result.position.x+1] + noise_height[-result.position.z][-result.position.x+1]))
+#
+#
+#		offset[-result.position.z][-result.position.x] = min(lowest_neighbor + 1 - noise_height[-result.position.z][-result.position.x], offset[-result.position.z][-result.position.x] )
+#		offset[-result.position.z+1][-result.position.x] = min(lowest_neighbor + 1 - noise_height[-result.position.z+1][-result.position.x], offset[-result.position.z+1][-result.position.x])
+#		offset[-result.position.z+1][-result.position.x+1] = min(lowest_neighbor + 1 - noise_height[-result.position.z+1][-result.position.x+1], offset[-result.position.z+1][-result.position.x+1])
+#		offset[-result.position.z][-result.position.x+1] = min(lowest_neighbor + 1 - noise_height[-result.position.z][-result.position.x+1], offset[-result.position.z][-result.position.x+1])
+#	else:
+#		var highest_neighbor = max(
+#			max(offset[-result.position.z][-result.position.x] + noise_height[-result.position.z][-result.position.x],
+#			offset[-result.position.z+1][-result.position.x] + noise_height[-result.position.z+1][-result.position.x]),
+#			max(offset[-result.position.z+1][-result.position.x+1] + noise_height[-result.position.z+1][-result.position.x+1],
+#			offset[-result.position.z][-result.position.x+1] + noise_height[-result.position.z][-result.position.x+1]))
+#
+#
+#		offset[-result.position.z][-result.position.x] = min(highest_neighbor - 1 - noise_height[-result.position.z][-result.position.x], offset[-result.position.z][-result.position.x] )
+#		offset[-result.position.z+1][-result.position.x] = min(highest_neighbor - 1 - noise_height[-result.position.z+1][-result.position.x], offset[-result.position.z+1][-result.position.x])
+#		offset[-result.position.z+1][-result.position.x+1] = min(highest_neighbor - 1 - noise_height[-result.position.z+1][-result.position.x+1], offset[-result.position.z+1][-result.position.x+1])
+#		offset[-result.position.z][-result.position.x+1] = min(highest_neighbor - 1 - noise_height[-result.position.z][-result.position.x+1], offset[-result.position.z][-result.position.x+1])
 	generate_mesh()
 
 #func _process(delta):
@@ -108,7 +134,7 @@ func generate_mesh():
 	for i in range(data_tool.get_vertex_count()):
 		var vertex = data_tool.get_vertex(i)
 		vertex.y = floor(noise.get_noise_3d(vertex.x, vertex.y, vertex.z) * 10) + offset[floor(i / (plane_mesh.size.x + 1))][i % int(plane_mesh.size.x + 1)]
-		noise_height[floor(i / (plane_mesh.size.x + 1))][i % int(plane_mesh.size.x + 1)] = vertex.y
+		noise_height[floor(i / (plane_mesh.size.x + 1))][i % int(plane_mesh.size.x + 1)] = floor(noise.get_noise_3d(vertex.x, vertex.y, vertex.z) * 10)
 		data_tool.set_vertex(i, vertex)
 	
 	for i in range(array_plane.get_surface_count()):
