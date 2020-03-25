@@ -13,7 +13,7 @@ func _process(delta):
 	if 16 > rotating and rotating > 0:
 		rotate_y(PI/16)
 		rotating += 1
-		print(rotating)
+		#print(rotating)
 	elif rotating == 16:
 		rotating = 0
 

@@ -110,7 +110,7 @@ func terraform(n):
 		if(!refreshed_chunks.has(chunk)):
 			refreshed_chunks += [chunk]
 	for chunk in refreshed_chunks:
-		print(chunk)
+		#print(chunk)
 		generate_terrain(chunk[0], chunk[1])
 
 func _unhandled_input(event):
@@ -121,10 +121,10 @@ func _unhandled_input(event):
 			terraform(1)
 	
 func generate_terrain(x, z):
-	print(str(x) + ", " + str(z))
+	#print(str(x) + ", " + str(z))
 	for n in get_children():
 		if(n.get_name() == ("Terrain" + str(x) + "_" + str(z)) || n.get_name() == ("Water" + str(x) + "_" + str(z))):
-			print("found")
+			#print("found")
 			remove_child(n)
 	var noise = OpenSimplexNoise.new()
 	noise.period = 80
