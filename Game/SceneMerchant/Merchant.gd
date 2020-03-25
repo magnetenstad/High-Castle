@@ -36,7 +36,7 @@ func attempt_build(mouse_position):
 	if balance >= tower_price:
 		# target_position is the spawn position on the map
 		var target_position = raytrace_mouse(mouse_position)
-		print(target_position)
+		#print(target_position)
 		if target_position:
 			var tower = tower_preloads[selected_tower].instance()
 			
