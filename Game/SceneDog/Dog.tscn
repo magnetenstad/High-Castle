@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://SceneEnemy/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://SceneDog/Dog.gd" type="Script" id=1]
 [ext_resource path="res://Assets/doggo_metal.png" type="Texture" id=3]
 
 [sub_resource type="SphereShape" id=1]
@@ -26,4 +26,3 @@ shape = SubResource( 1 )
 wait_time = 0.5
 autostart = true
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
-[connection signal="timeout" from="Enemy/AttackTimer" to="Enemy" method="_on_AttackTimer_timeout"]

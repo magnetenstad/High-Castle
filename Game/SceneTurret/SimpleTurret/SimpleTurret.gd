@@ -12,7 +12,7 @@ func _ready():
 func _on_ShootTimer_timeout():
 	enemies.clear()
 	for overlap in $Area.get_overlapping_bodies():
-		if "Enemy" in overlap.name:
+		if ("Dog" in overlap.name) && overlap.team != team:
 			enemies.append(overlap)
 
 	if enemies.size() > 0:

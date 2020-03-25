@@ -10,5 +10,7 @@ func _on_Button_pressed():
 	if(button_type == "Tower"):
 		$"/root/Main/World/Merchant".selected_tower = item
 	elif(button_type == "Wave"):
-		$"/root/Main/World/LevelController".start_level()
+		for child in $"/root/Main/World/Merchant/Turrets".get_children():
+			if("Spawner" in child.name):
+				child.spawn()
 	

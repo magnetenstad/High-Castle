@@ -10,14 +10,14 @@ var velocity = Vector3()
 var attack_range = 1.5
 
 var dmg = 7
+var team
 
 var health = 1
 const health_max = 20
 
-var turrets = []
+var enemy_turrets = []
 
 func _ready():
-	#target = $"/root/Main/World/Merchant/Turrets/Core"
 	health = health_max
 	name = "Enemy"
 
@@ -25,8 +25,6 @@ func _physics_process(delta):
 	velocity.x *= 0.5
 	velocity.z *= 0.5
 	velocity += gravity * delta
-	#if randf() > 0.995:
-	#	target = translation + Vector3(randf()*20 - 10, 0, randf()*20-10)
 	if(is_instance_valid(target)):
 		var vy = velocity.y
 		velocity += speed * (target.translation - get_transform().origin).normalized()
@@ -36,11 +34,12 @@ func _physics_process(delta):
 		velocity.y = jump_speed
 
 func _on_AttackTimer_timeout():
-	turrets.clear()
+	enemy_turrets.clear()
 	for tmp_turret in get_tree().get_nodes_in_group("Turrets"):
-		turrets.append(tmp_turret)
+		if(tmp_turret.team != team):
+			enemy_turrets.append(tmp_turret)
 	
-	for tmp_turret in turrets:
+	for tmp_turret in enemy_turrets:
 		if(!is_instance_valid(target) || (tmp_turret.translation - self.translation).length() <
 		(target.translation - self.translation).length()):
 			target = tmp_turret

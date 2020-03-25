@@ -4,7 +4,7 @@ extends Spatial
 # Create variables
 var selected_tower
 var balance
-var core_placed = false
+var core_placed = [false, false, false, false, false, false, false, false, false, false]
 
 # Constant values
 const start_balance = 100
@@ -24,34 +24,51 @@ const tower_preloads = {
 func _ready():
 	balance = start_balance
 	selected_tower = "Core"
+	yield(get_tree().create_timer(0.1),"timeout")
+	attempt_build(raytrace_down(Vector3(-4, 200, -3)), "SimpleTurret", 1)
+	attempt_build(raytrace_down(Vector3(0, 200, 0)), "Core", 1)
+	attempt_build(raytrace_down(Vector3(4, 200, 0)), "SimpleTurret", 1)
+	attempt_build(raytrace_down(Vector3(6, 200, 2)), "SimpleTurret", 1)
+	attempt_build(raytrace_down(Vector3(4, 200, 4)), "SimpleTurret", 1)
+	attempt_build(raytrace_down(Vector3(0, 200, 4)), "Spawner", 1)
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
-		attempt_build(event.position)
+		attempt_build(raytrace_mouse(event.position), selected_tower, 0)
 
-func attempt_build(mouse_position):
-	if selected_tower == "Core" and core_placed:
+func attempt_build(target_position, tower_id, team):
+	if (tower_id == "Core" and core_placed[team]) || !target_position:
 		return
-	var tower_price = get_price(selected_tower)
-	if balance >= tower_price:
-		# target_position is the spawn position on the map
-		var target_position = raytrace_mouse(mouse_position)
-		#print(target_position)
-		if target_position:
-			var tower = tower_preloads[selected_tower].instance()
-			
-			tower.translate(target_position)
-			get_node("Turrets").add_child(tower)
-			tower.set_name(selected_tower)
-			balance -= tower_price
-			if selected_tower == "Core":
-				core_placed = true
+	var tower_price = get_price(tower_id)
+	if team != 0 || balance >= tower_price:
+		var tower = tower_preloads[tower_id].instance()
+		tower.translate(target_position)
+		get_node("Turrets").add_child(tower)
+		tower.set_name(tower_id)
+		tower.team = team
+		balance -= tower_price
+		if tower_id == "Core":
+			core_placed[team] = true
 			
 			
 func raytrace_mouse(mouse_position):
 	var camera = get_viewport().get_camera()
 	var from = camera.project_ray_origin(mouse_position)
 	var to = from + camera.project_ray_normal(mouse_position) * ray_length
+	var space_state = get_world().get_direct_space_state()
+	var result = space_state.intersect_ray(from, to)
+	if(result.empty()):
+		return false
+	if "Terrain" in result.collider.name:
+		result.position.y += 1
+		result.position.x = round(result.position.x - .5) + .5
+		result.position.y = round(result.position.y) - .42
+		result.position.z = round(result.position.z - .5) + .5
+	return result.position
+
+func raytrace_down(position):
+	var from = position
+	var to = position + Vector3(0,-1,0) * ray_length
 	var space_state = get_world().get_direct_space_state()
 	var result = space_state.intersect_ray(from, to)
 	if(result.empty()):

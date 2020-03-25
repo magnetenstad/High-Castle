@@ -35,4 +35,4 @@ shadow_contact = 0.1
 [node name="LevelController" type="Node" parent="World"]
 script = ExtResource( 5 )
 
-[node name="Enemies" type="Node" parent="World/LevelController"]
+[node name="Units" type="Node" parent="World/LevelController"]
