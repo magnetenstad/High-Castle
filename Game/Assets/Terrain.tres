@@ -31,9 +31,10 @@ vec3 lerpColor(vec4 a, vec4 b, float t) {
 	float bb = a.b + (b.b - a.b) * t;
 	return vec3(rr, gg, bb);
 }
+uniform float chunk_size;
 
 void vertex() {
-	UV=UV*uv1_scale.xy*128.0+uv1_offset.xy;
+	UV=UV*uv1_scale.xy*chunk_size+uv1_offset.xy;
 	
 	grass = 0.0;
 	
@@ -78,5 +79,6 @@ shader_param/uv2_offset = Vector3( 0, 0, 0 )
 shader_param/sand_color = Color( 0.882353, 0.764706, 0.392157, 1 )
 shader_param/grass_color = Color( 0.243137, 0.752941, 0.14902, 1 )
 shader_param/stone_color = Color( 0.5, 0.5, 0.5, 1 )
+shader_param/chunk_size = null
 shader_param/texture_grass = ExtResource( 1 )
 shader_param/texture_sand = ExtResource( 2 )

@@ -36,6 +36,7 @@ func attempt_build(mouse_position):
 	if balance >= tower_price:
 		# target_position is the spawn position on the map
 		var target_position = raytrace_mouse(mouse_position)
+		print(target_position)
 		if target_position:
 			var tower = tower_preloads[selected_tower].instance()
 			
@@ -55,7 +56,7 @@ func raytrace_mouse(mouse_position):
 	var result = space_state.intersect_ray(from, to)
 	if(result.empty()):
 		return false
-	if(result.collider.name == "Terrain_col"):
+	if "Terrain" in result.collider.name:
 		result.position.y += 1
 		result.position.x = round(result.position.x - .5) + .5
 		result.position.y = round(result.position.y) - .42
