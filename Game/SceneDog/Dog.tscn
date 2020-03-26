@@ -6,7 +6,9 @@
 [sub_resource type="SphereShape" id=1]
 radius = 0.45141
 
-[node name="Enemy" type="KinematicBody"]
+[node name="Enemy" type="KinematicBody" groups=[
+"Dogs",
+]]
 script = ExtResource( 1 )
 
 [node name="Sprite3D" type="Sprite3D" parent="."]

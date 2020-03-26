@@ -11,7 +11,7 @@ func _ready():
 func _process(_delta):
 	pass
 
-func take_damage(n):
+func take_damage(n, origin):
 	health -= n
 	$Sprite3D.modulate = Color(1, health/float(health_max), health/float(health_max))
 	$Base.modulate = Color(1, health/float(health_max), health/float(health_max))

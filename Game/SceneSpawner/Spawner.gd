@@ -4,6 +4,7 @@ const DOG = preload("res://SceneDog/Dog.tscn")
 var rng = RandomNumberGenerator.new()
 
 func _ready():
+	health_max = 500
 	health = 500
 	rng.randomize()
 
