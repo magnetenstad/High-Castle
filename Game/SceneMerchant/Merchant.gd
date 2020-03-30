@@ -38,7 +38,8 @@ func attempt_build(target_position, tower_id, team):
 		tower.translate(target_position)
 		get_node("Turrets").add_child(tower)
 		tower.set_name(tower_id)
-		tower.team = team
+		if not "Tree" in tower_id:
+			tower.team = team
 		balance -= tower_price
 		if tower_id == "Core":
 			core_placed[team] = true
