@@ -19,7 +19,7 @@ var enemy_list = []
 
 func _ready():
 	health = health_max
-	name = "Enemy"
+	name = "Dog"
 
 func _physics_process(delta):
 	velocity.x *= 0.5
