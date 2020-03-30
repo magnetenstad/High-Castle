@@ -4,5 +4,5 @@
 font_path = "res://Assets/Roboto-Bold.ttf"
 
 [resource]
-size = 26
+size = 200
 font_data = SubResource( 1 )

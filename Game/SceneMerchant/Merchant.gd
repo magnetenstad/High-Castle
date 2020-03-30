@@ -24,13 +24,6 @@ const tower_preloads = {
 func _ready():
 	balance = start_balance
 	selected_tower = "Core"
-	yield(get_tree().create_timer(0.1),"timeout")
-	attempt_build(raytrace_down(Vector3(-4, 200, -3)), "SimpleTurret", 1)
-	attempt_build(raytrace_down(Vector3(0, 200, 0)), "Core", 1)
-	attempt_build(raytrace_down(Vector3(4, 200, 0)), "SimpleTurret", 1)
-	attempt_build(raytrace_down(Vector3(6, 200, 2)), "SimpleTurret", 1)
-	attempt_build(raytrace_down(Vector3(4, 200, 4)), "SimpleTurret", 1)
-	attempt_build(raytrace_down(Vector3(0, 200, 4)), "Spawner", 1)
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
